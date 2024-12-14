@@ -35,6 +35,7 @@ Dưới đây là kiến trúc của hệ thống:
 ### **4. Amazon S3**
 - Dữ liệu sau khi được xử lý sẽ được lưu trữ dưới dạng **JSON** trong **Amazon S3**.
 ![Processed Data](https://github.com/user-attachments/assets/53e111ae-87ec-4bac-938c-48bc78f2779f)
+![z6123916763787_57bc529fad9434e9e638760eaeed50a8](https://github.com/user-attachments/assets/43ff4ad1-5530-48e7-829a-fb821a3f461f)
 
 ---
 
