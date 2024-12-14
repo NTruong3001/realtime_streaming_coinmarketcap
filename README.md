@@ -11,7 +11,7 @@ Dự án này xây dựng một **Data Pipeline Streaming** từ **Coinmarketcap
 
 Dưới đây là kiến trúc của hệ thống:
 
-![Architecture Diagram](https://github.com/user-attachments/assets/e32f56ab-aae3-4a95-b1c6-b010e0a0ffd7)
+![Architecture Diagram](https://github.com/user-attachments/assets/eb7782cb-218a-41e9-a02a-9364ca4cc9f0)
 
 ---
 
