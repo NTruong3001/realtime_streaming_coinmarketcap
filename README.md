@@ -88,3 +88,5 @@ Dưới đây là kiến trúc của hệ thống:
 ├── test.py
 ├── requirements.txt
 ├── README.md
+---
+## **Hướng dẫn triển khai**
