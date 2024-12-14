@@ -1,3 +1,4 @@
+
 # **Realtime Streaming Coinmarketcap Data Pipeline**
 
 ## **Mô tả dự án**
@@ -9,7 +10,8 @@ Dự án này xây dựng một **Data Pipeline Streaming** từ **Coinmarketcap
 ## **Kiến trúc tổng quan**
 
 Dưới đây là kiến trúc của hệ thống:
-![Architecture Diagram](https://github.com/user-attachments/assets/63f008e8-c4b0-4418-9762-f6390200ff82)
+
+![Architecture Diagram](https://github.com/user-attachments/assets/e32f56ab-aae3-4a95-b1c6-b010e0a0ffd7)
 
 ---
 
@@ -45,6 +47,15 @@ Dưới đây là kiến trúc của hệ thống:
 
 ### **6. Amazon Athena**
 - Sử dụng Athena để chạy các truy vấn SQL trực tiếp trên dữ liệu đã lưu trữ trong S3.
+![Athena Query Result](https://github.com/user-attachments/assets/bd1d1ca8-2b0b-4a24-bd13-2efa5fb8711a)
+---
+
+## **Kết quả**
+
+### **Kết quả xử lý dữ liệu**
+![Processed Data](https://github.com/user-attachments/assets/00929068-b687-4827-9a96-6eff2bebf847)
+
+### **Truy vấn trên Amazon Athena**
 ![Athena Query Result](https://github.com/user-attachments/assets/bd1d1ca8-2b0b-4a24-bd13-2efa5fb8711a)
 
 ---
@@ -88,5 +99,77 @@ Dưới đây là kiến trúc của hệ thống:
 ├── test.py
 ├── requirements.txt
 ├── README.md
+```
+
 ---
+
 ## **Hướng dẫn triển khai**
+
+### **1. Cấu hình môi trường**
+- Đảm bảo bạn đã cài đặt:
+  - **Docker**
+  - **Python** (phiên bản >= 3.6)
+  - **Apache Kafka**
+- Cài đặt các thư viện cần thiết:
+  ```bash
+  pip install -r requirements.txt
+  ```
+- Đảm bảo cấu hình quyền truy cập **AWS IAM** để sử dụng Amazon S3, Glue, và Athena.
+
+---
+
+### **2. Khởi động Kafka và Zookeeper bằng Docker**
+- Chạy lệnh sau để khởi động Kafka và Zookeeper:
+  ```bash
+  docker-compose up -d
+  ```
+
+---
+
+### **3. Chạy Scrapy**
+- Tạo Scrapy Spider để thu thập dữ liệu từ **Coinmarketcap.com**:
+  ```bash
+  scrapy startproject coin_data
+  ```
+
+- Sau đó, trong thư mục `coin_data`, bạn sẽ có cấu trúc như sau:
+  ```plaintext
+  coin_data/
+  ├── coin_data/
+  │   ├── __init__.py
+  │   ├── items.py
+  │   ├── middlewares.py
+  │   ├── pipelines.py
+  │   ├── settings.py
+  │   └── spiders/
+  │       ├── __init__.py
+  │       └── coin.py
+  ├── scrapy.cfg
+  ```
+
+- Chạy Scrapy để thu thập dữ liệu:
+  ```bash
+  scrapy crawl coin
+  ```
+
+---
+
+### **4. Xử lý dữ liệu với Spark**
+- Chạy mã để đọc dữ liệu được crawl bằng:
+  ```bash
+  python producer.py
+  ```
+
+- Sau đó, submit `consumer.py` lên Spark để xử lý dữ liệu và upload lên Amazon S3:
+  ```bash
+  docker exec -it realtime_streaming_coinmarketcap-spark-master-1 spark-submit   --master spark://spark-master:7077   --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.apache.hadoop:hadoop-aws:3.3.1,com.amazonaws:aws-java-sdk:1.11.469   /opt/bitnami/spark/jobs/consumer.py
+  ```
+
+
+
+## **Liên hệ**
+Nếu có bất kỳ câu hỏi hoặc đóng góp nào, vui lòng liên hệ:
+
+- **Name**:Ngyễn Nhật Trường
+- **Email**:truongnn30012gmail.com
+- **GitHub**: https://github.com/NTruong3001
