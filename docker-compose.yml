@@ -90,44 +90,7 @@ services:
 
   spark_worker3:
     <<: *spark-common
-  cassandra:
-    image: cassandra:latest
-    container_name: cassandra
-    environment:
-      CASSANDRA_CLUSTER_NAME: "MyCluster"
-      CASSANDRA_DC: "DC1"
-      CASSANDRA_RACK: "Rack1"
-      CASSANDRA_AUTHENTICATOR: PasswordAuthenticator
-      CASSANDRA_AUTHORIZER: CassandraAuthorizer
-      CASSANDRA_PASSWORD: "123"
-    ports:
-      - "9042:9042"
-    volumes:
-      - cassandra-data:/var/lib/cassandra
-    networks:
-      - datamasterylab
-    healthcheck:
-      test: ["CMD", "cqlsh", "-e", "SELECT release_version FROM system.local"]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 5s
-
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: test
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-    networks:
-      - datamasterylab
-
+    
   airflow-webserver:
     image: apache/airflow:latest
     container_name: airflow-webserver
