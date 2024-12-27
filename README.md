@@ -172,5 +172,5 @@ Dưới đây là kiến trúc của hệ thống:
 Nếu có bất kỳ câu hỏi hoặc đóng góp nào, vui lòng liên hệ:
 
 - **Name**:Ngyễn Nhật Trường
-- **Email**:truongnn30012gmail.com
+- **Email**:truongnn3001gmail.com
 - **GitHub**: https://github.com/NTruong3001
